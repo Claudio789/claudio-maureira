@@ -9,7 +9,8 @@ const projects = [
     description: "Plataforma enfocada en la optimización de repartos para el comercio local y minimarkets, facilitando la conexión entre proveedores y clientes.",
     icon: Truck,
     color: "from-blue-600 to-cyan-500",
-    tags: ["Logística", "Retail", "Valdivia"]
+    tags: ["Logística", "Retail", "Valdivia"],
+    link: "https://simply-entregas.vercel.app/"
   },
   {
     title: "Plan B",
@@ -25,7 +26,8 @@ const projects = [
     description: "Servicios estratégicos que integran contabilidad, recursos humanos y gestión de negocios bajo una mirada holística y eficiente.",
     icon: LayoutDashboard,
     color: "from-slate-700 to-slate-900",
-    tags: ["Asesoría", "RRHH", "Finanzas"]
+    tags: ["Asesoría", "RRHH", "Finanzas"],
+    link: "https://confluia.vercel.app/"
   }
 ];
 
@@ -34,6 +36,14 @@ interface PortfolioProps {
 }
 
 export default function Portfolio({ onAction }: PortfolioProps) {
+  const handleButtonClick = (project: typeof projects[0]) => {
+    if (project.link) {
+      window.open(project.link, '_blank', 'noopener,noreferrer');
+    } else {
+      onAction('cliente');
+    }
+  };
+
   return (
     <section id="portfolio" className="py-32 bg-[#050505] px-6">
       <div className="max-w-6xl mx-auto">
@@ -85,10 +95,10 @@ export default function Portfolio({ onAction }: PortfolioProps) {
               </div>
 
               <button 
-                onClick={() => onAction('cliente')}
+                onClick={() => handleButtonClick(project)}
                 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 group-hover:text-white transition-colors outline-none cursor-pointer"
               >
-                Solicitar Consultoría <ChevronRight className="w-4 h-4" />
+                {project.link ? 'Visitar Sitio' : 'Solicitar Consultoría'} <ChevronRight className="w-4 h-4" />
               </button>
             </motion.div>
           ))}
